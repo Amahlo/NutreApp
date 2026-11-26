@@ -14,49 +14,48 @@ public class UsuarioValidacion {
     @Autowired
     private IUsuarioRepositorio repositorio;
 
-    //Validaciones de formato
+    // Validaciones de formato
 
-    //1. validar que un campo sea obligatorio
-    public void validarTextoObligatorio(String valor, String campo){
-        if(valor==null || valor.isBlank()){
-            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST," El campo " + campo + " es obligatorio ");
+    // 1. validar que un campo sea obligatorio
+    public void validarTextoObligatorio(String valor, String campo) {
+        if (valor == null || valor.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, " El campo " + campo + " es obligatorio ");
 
         }
 
     }
 
-    //2. validar la longitud de un nombre
-    public void validarNombre(String nombre){
-        if(nombre.trim().length()<3 || nombre.trim().length()>100){
+    // 2. validar la longitud de un nombre
+    public void validarNombre(String nombre) {
+        if (nombre.trim().length() < 3 || nombre.trim().length() > 100) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre debe tener entre 3 y 100 caracteres");
         }
     }
 
-    //3. expresiones regulares para validar que un correo si sea un correo
-    //algo@algo.algo
-    public void validarCorreo(String correo){
-        if(!correo.matches("^[\\w.+-]+@[\\w-]+\\.[\\w.]+$")){
-            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST,"El correo no cumple el formato esperado");
+    // 3. expresiones regulares para validar que un correo si sea un correo
+    // algo@algo.algo
+    public void validarCorreo(String correo) {
+        if (!correo.matches("^[\\w.+-]+@[\\w-]+\\.[\\w.]+$")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El correo no cumple el formato esperado");
         }
     }
 
-    //4. validar que la contraseña tengo minimo 8 caracteres
-    public void validarContraseña(String contraseña){
-        if(contraseña.length()<=8){
-            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST,"La contraseña debe tener al menos 8 caracteres");
+    // 4. validar que la contraseña tengo minimo 8 caracteres
+    public void validarContraseña(String contraseña) {
+        if (contraseña.length() < 8) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La contraseña debe tener al menos 8 caracteres");
         }
     }
 
+    // validaciones del negocio
 
-    //validaciones del negocio
-
-    //1. validar que el correo de un usuario que se quiere registrar no exista en la BD
-    public void validarUsuarioNuevo(Usuario datos){
-        String correoEntregado=datos.getCorreo();
-        if(this.repositorio.existsByCorreo(correoEntregado)){
-            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST,"El correo entregado ya existe en la BD");
+    // 1. validar que el correo de un usuario que se quiere registrar no exista en
+    // la BD
+    public void validarUsuarioNuevo(Usuario datos) {
+        String correoEntregado = datos.getCorreo();
+        if (this.repositorio.existsByCorreo(correoEntregado)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El correo entregado ya existe en la BD");
         }
     }
-
 
 }

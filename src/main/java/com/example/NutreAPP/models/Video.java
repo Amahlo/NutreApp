@@ -16,30 +16,30 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity 
-@Table (name="videos")
+@Entity
+@Table(name = "videos")
 public class Video {
-    @Id 
-    @GeneratedValue  (strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column (name="titulo", nullable = false, unique = false, length = 100)
+    @Column(name = "titulo", nullable = false, unique = false, length = 100)
     private String titulo;
 
-    @Column (name="descripcion", nullable = false, unique = false, length = 300)
+    @Column(name = "descripcion", nullable = false, unique = false, length = 300)
     private String descripcion;
 
-    @Column (name="url", nullable = false, unique = false, length = 100)
+    @Column(name = "url", nullable = false, unique = false, length = 100)
     private String url;
 
-    @Enumerated (EnumType.STRING)
-    @Column (name = "categoria", nullable = false, unique = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "categoria", nullable = false, unique = false)
     private Categoria categoria;
 
     @OneToMany(mappedBy = "video")
-    @JsonManagedReference(value = "video-visualizacion")
+    @JsonManagedReference(value = "videoVisualizacion")
     private List<Visualizacion> visualizaciones;
-    
+
     public Video() {
     }
 
@@ -98,7 +98,5 @@ public class Video {
     public void setVisualizaciones(List<Visualizacion> visualizaciones) {
         this.visualizaciones = visualizaciones;
     }
-    
-    
 
 }
